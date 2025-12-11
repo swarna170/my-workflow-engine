@@ -1,0 +1,29 @@
+### 1) Create loop graph
+POST http://127.0.0.1:8000/graph/create
+Content-Type: application/json
+
+{
+  "start_node": "increment",
+  "nodes": {
+    "increment": { "id": "increment", "func": "increment_counter" },
+    "check":     { "id": "check",     "func": "noop" },
+    "end":       { "id": "end",       "func": "noop", "condition": "state.get(\"counter\",0) >= 3" }
+  },
+  "edges": {
+    "increment": ["check"],
+    "check":     ["end", "increment"],
+    "end":       []
+  }
+}
+
+
+POST http://127.0.0.1:8000/graph/run
+Content-Type: application/json
+
+{
+  "graph_id": "46509b0b-ed26-4cd1-8d94-0cce5b1010ff",
+  "initial_state": {}
+}
+
+
+GET http://127.0.0.1:8000/graph/state/22b4658a-8fa1-4c17-9512-40f735c93a0e

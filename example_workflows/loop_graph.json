@@ -1,0 +1,13 @@
+﻿{
+  "start_node": "increment",
+  "nodes": {
+    "increment": { "id": "increment", "func": "increment_counter" },
+    "check":     { "id": "check",     "func": "noop" },
+    "end":       { "id": "end",       "func": "noop", "condition": "state.get(\"counter\",0) >= 3" }
+  },
+  "edges": {
+    "increment": ["check"],
+    "check":     ["end", "increment"],
+    "end":       []
+  }
+}

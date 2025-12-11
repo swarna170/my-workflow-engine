@@ -1,0 +1,13 @@
+{
+  "start_node": "analyze",
+  "nodes": {
+    "analyze": { "id": "analyze", "func": "async_analyze" },
+    "check":   { "id": "check",   "func": "noop" },
+    "end":     { "id": "end",     "func": "noop", "condition": "state.get(\"quality_score\",0) >= 0.7" }
+  },
+  "edges": {
+    "analyze": ["check"],
+    "check":   ["end", "analyze"],
+    "end":     []
+  }
+}

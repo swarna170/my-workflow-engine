@@ -1,0 +1,28 @@
+{
+  "start_node": "split",
+  "nodes": {
+    "split": {
+      "id": "split",
+      "func": "split_text",
+      "params": { "chunk_size": 50 }
+    },
+    "summarize": {
+      "id": "summarize",
+      "func": "summarize_chunk"
+    },
+    "merge": {
+      "id": "merge",
+      "func": "merge_summaries"
+    },
+    "refine": {
+      "id": "refine",
+      "func": "refine_summary"
+    }
+  },
+  "edges": {
+    "split": ["summarize"],
+    "summarize": ["merge"],
+    "merge": ["refine"],
+    "refine": []
+  }
+}
